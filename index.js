@@ -22,6 +22,7 @@ app.get("/api/:data", function (req, res) {
   let dataNum = Number(req.params.data);
   let date = new Date(req.params.data);
   let responseData = {unix: Number, utc: Date}
+  console.log(req.params.data.valueOf());
   if(dataNum !== NaN && (new Date(dataNum)).toString() !== "Invalid Date") {
     responseData.unix = dataNum;
     responseData.utc = new Date(dataNum).toUTCString();
@@ -34,6 +35,11 @@ app.get("/api/:data", function (req, res) {
   }
   res.json(responseData);
 });
+
+app.get("/api", (req, res) => {
+  let date = new Date();
+  res.json({unix: date.getTime(), utc: date.toUTCString()});
+})
 
 
 
